@@ -52,14 +52,35 @@ export default function Home(): ReactElement {
               </ul>
             </a>
           </Link>
+
+          <Link href="/">
+            <a className={styles.post}>
+              <strong>Como Utilizar Hooks</strong>
+              <p>Pensando em sincronização em vez de ciclos de vida.</p>
+              <ul>
+                <li>
+                  <FiCalendar />
+                  15 Mar 2021
+                </li>
+                <li>
+                  <FiUser />
+                  Joseph Oliveira
+                </li>
+              </ul>
+            </a>
+          </Link>
         </div>
+
+        <button className={styles.seeMore} type="button">
+          Carregar mais posts
+        </button>
       </main>
     </>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  // const prismic = getPrismicClient();
-  // const postsResponse = await prismic.query(TODO);
-  // TODO
-};
+// export const getStaticProps: GetStaticProps = async () => {
+// const prismic = getPrismicClient();
+// const postsResponse = await prismic.query(TODO);
+// TODO
+// };
