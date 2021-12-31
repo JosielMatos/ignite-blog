@@ -1,4 +1,4 @@
-import next, { GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { ReactElement, useState } from 'react';
 
@@ -63,7 +63,6 @@ export default function Home({ postsPagination }: HomeProps): ReactElement {
     setNextPage(postsResults.next_page);
     setCurrentPage(postsResults.page);
 
-    console.log(postsResults);
     const newPosts = postsResults.results.map(post => {
       return {
         uid: post.uid,
