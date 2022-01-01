@@ -1,5 +1,6 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import Head from 'next/head';
 import { ReactElement, useState } from 'react';
 
 import Prismic from '@prismicio/client';
@@ -86,6 +87,9 @@ export default function Home({ postsPagination }: HomeProps): ReactElement {
 
   return (
     <>
+      <Head>
+        <title>Home | spacetraveling</title>
+      </Head>
       <main className={commonStyles.container}>
         <Header />
         <div className={styles.postsList}>
