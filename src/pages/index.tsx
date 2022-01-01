@@ -6,7 +6,7 @@ import { ReactElement, useState } from 'react';
 import Prismic from '@prismicio/client';
 
 import { FiCalendar, FiUser } from 'react-icons/fi';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 import Header from '../components/Header';
@@ -40,7 +40,7 @@ export default function Home({ postsPagination }: HomeProps): ReactElement {
     return {
       ...post,
       first_publication_date: format(
-        new Date(post.first_publication_date),
+        parseISO(post.first_publication_date),
         'dd MMM yyyy',
         {
           locale: ptBR,
@@ -68,7 +68,7 @@ export default function Home({ postsPagination }: HomeProps): ReactElement {
       return {
         uid: post.uid,
         first_publication_date: format(
-          new Date(post.first_publication_date),
+          parseISO(post.first_publication_date),
           'dd MMM yyyy',
           {
             locale: ptBR,
@@ -88,10 +88,10 @@ export default function Home({ postsPagination }: HomeProps): ReactElement {
   return (
     <>
       <Head>
-        <title>Home | spacetraveling</title>
+        <title>Home | Space Traveling</title>
       </Head>
+      <Header />
       <main className={commonStyles.container}>
-        <Header />
         <div className={styles.postsList}>
           {posts.map(post => (
             <Link key={post.uid} href={`/post/${post.uid}`}>
