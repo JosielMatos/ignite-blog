@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 import Prismic from '@prismicio/client';
 
@@ -10,6 +10,7 @@ import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 import Header from '../components/Header';
+import ExitPreviewButton from '../components/ExitPreviewButton';
 
 import { getPrismicClient } from '../services/prismic';
 
@@ -33,9 +34,13 @@ interface PostPagination {
 
 interface HomeProps {
   postsPagination: PostPagination;
+  preview: boolean;
 }
 
-export default function Home({ postsPagination }: HomeProps): ReactElement {
+export default function Home({
+  postsPagination,
+  preview,
+}: HomeProps): JSX.Element {
   const formattedPosts = postsPagination.results.map(post => {
     return {
       ...post,
@@ -122,16 +127,18 @@ export default function Home({ postsPagination }: HomeProps): ReactElement {
             Carregar mais posts
           </button>
         )}
+
+        {preview && <ExitPreviewButton />}
       </main>
     </>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query(
     [Prismic.Predicates.at('document.type', 'posts')],
-    { pageSize: 1 }
+    { pageSize: 3 }
   );
 
   const posts = postsResponse.results.map(post => {
@@ -154,6 +161,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       postsPagination,
+      preview,
     },
   };
 };
